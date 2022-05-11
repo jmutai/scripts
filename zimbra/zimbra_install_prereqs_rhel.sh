@@ -69,7 +69,7 @@ echo "Zimbra server hostname is:"
 hostname -f
 
 echo -e "[INFO] : Disable mail services if active"
-sudo systemctl disable --now sendmail postfix 2>/dev/null
+sudo systemctl disable --now postfix 2>/dev/null
 
 
 ## Configure timezone

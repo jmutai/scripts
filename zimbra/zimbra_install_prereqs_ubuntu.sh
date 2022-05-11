@@ -25,7 +25,7 @@ sudo apt update && sudo apt -y full-upgrade
 sudo apt install -y net-tools netcat-openbsd libidn11 libpcre3 libgmp10 libexpat1 libstdc++6 libperl5.26 libaio1 resolvconf unzip pax sysstat sqlite3
 
 # Disable any mail services if running
-sudo systemctl disable --now sendmail postfix 2>/dev/null
+sudo systemctl disable --now postfix 2>/dev/null
 
 ## Input required variables
 echo ""
