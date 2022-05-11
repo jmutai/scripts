@@ -73,13 +73,13 @@ sudo systemctl disable --now sendmail postfix 2>/dev/null
 
 
 ## Configure timezone
-read -p "Input your timezone value, example Africa/Nairobi :" TimeZone
+read -p "Input your timezone value, example Africa/Nairobi: " TimeZone
 sudo timedatectl set-timezone $TimeZone
 sudo timedatectl set-ntp yes
 
 ## Configure Chrony ntp
 ###  Remove ntp package if installed
-sudo yum remove ntp -y 2>/de/null
+sudo yum remove ntp -y 2>/dev/null
 sudo yum -y install chrony
 sudo systemctl enable --now chronyd
 sudo chronyc sources

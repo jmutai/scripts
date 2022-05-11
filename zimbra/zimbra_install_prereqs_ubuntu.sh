@@ -58,7 +58,7 @@ sudo timedatectl set-ntp yes
 
 ## Configure Chrony ntp
 ###  Remove ntp package if installed
-sudo apt remove ntp -y
+sudo apt remove ntp -y 2>/dev/null
 sudo apt -y install chrony
 sudo systemctl restart chrony
 sudo chronyc sources
