@@ -55,6 +55,14 @@ sudo systemctl disable systemd-resolved
 sudo systemctl enable resolvconf
 sudo systemctl restart resolvconf
 
+# Update /etc/resolv.conf file
+sudo tee /etc/resolv.conf<<EOF
+search $ZIMBRA_DOMAIN
+nameserver $ZIMBRA_SERVERIP
+nameserver 8.8.8.8
+nameserver 1.1.1.1
+EOF
+
 ## Configure Bind DNS Server
 echo ""
 echo -e "[INFO] : Configuring DNS Server"
@@ -96,6 +104,22 @@ mail	IN	A	$ZIMBRA_SERVERIP
 EOF
 
 sudo sed -i 's/dnssec-validation yes/dnssec-validation no/g' /etc/bind/named.conf.options
+
+# Configure DNS Options
+sudo tee /etc/bind/named.conf.options<<EOF
+options {
+	directory "/var/cache/bind";
+
+	forwarders {
+		8.8.8.8;
+		1.1.1.1;
+	};
+
+	dnssec-validation auto;
+
+	listen-on-v6 { any; };
+};
+EOF
 
 # Restart Service & Check results configuring DNS Server
 
