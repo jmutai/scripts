@@ -85,7 +85,14 @@ mail	IN	A	$ZIMBRA_SERVERIP
 EOF
 
 # Update /etc/resolv.conf file
-sudo sed -i '1 s/^/nameserver 127.0.0.1\n/' /etc/resolv.conf
+#sudo sed -i '1 s/^/nameserver 127.0.0.1\n/' /etc/resolv.conf
+sudo tee /etc/resolv.conf<<EOF
+search $ZIMBRA_DOMAIN
+nameserver 127.0.0.1
+nameserver $ZIMBRA_SERVERIP
+nameserver 8.8.8.8
+nameserver 1.1.1.1
+EOF
 
 # Restart Service & Check results configuring DNS Server
 sudo systemctl enable named

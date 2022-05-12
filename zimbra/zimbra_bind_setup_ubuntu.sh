@@ -44,6 +44,7 @@ echo ""
 sudo cp /etc/resolvconf/resolv.conf.d/head /etc/resolvconf/resolv.conf.d/head.backup
 sudo tee /etc/resolvconf/resolv.conf.d/head<<EOF
 search $ZIMBRA_DOMAIN
+nameserver 127.0.0.1
 nameserver $ZIMBRA_SERVERIP
 nameserver 8.8.8.8
 nameserver 1.1.1.1
