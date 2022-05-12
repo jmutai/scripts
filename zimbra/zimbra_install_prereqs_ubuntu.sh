@@ -52,7 +52,7 @@ echo "Zimbra server hostname is:"
 hostname -f
 
 ## Configure timezone
-read -p "Input your timezone value, example Africa/Nairobi :" TimeZone
+read -p "Input your timezone value, example Africa/Nairobi : " TimeZone
 sudo timedatectl set-timezone $TimeZone
 sudo timedatectl set-ntp yes
 
