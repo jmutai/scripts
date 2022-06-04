@@ -39,7 +39,7 @@ if [[ $? -eq '0' ]]; then
     sudo systemctl enable --now firewalld
     sudo firewall-cmd --add-service={http,https,smtp,smtps,imap,imaps,pop3,pop3s} --permanent
     sudo firewall-cmd --add-port 7071/tcp --permanent
-    sudo firewall-cmd -add-port 8443/tcp --permanent
+    sudo firewall-cmd --add-port 8443/tcp --permanent
     sudo firewall-cmd --reload
 fi
 
