@@ -28,7 +28,8 @@ read -p "Press Enter key to continue:" presskey
 
 #Update system and install key packages
 sudo yum update -y
-sudo yum -y install wget perl perl-core unzip screen openssh-clients openssh-server nmap nc sed sysstat libaio telnet rsync net-tools aspell 
+sudo yum -y install epel-release
+sudo yum -y install wget perl perl-core unzip tmux openssh-clients openssh-server nmap nc sed sysstat libaio telnet rsync net-tools aspell 
 
 
 # Disable firewall & SELinux
