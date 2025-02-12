@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# curl -sS https://raw.githubusercontent.com/jmutai/scripts/main/misc/kubectl-aliases.sh | bash
+# wget -qO- https://raw.githubusercontent.com/jmutai/scripts/main/misc/kubectl-aliases.sh | bash
 # Set shell
 if [ "$SHELL" = "/bin/bash" ]; then
     shell_rc="$HOME/.bashrc"
