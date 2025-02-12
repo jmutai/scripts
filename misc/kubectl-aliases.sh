@@ -55,6 +55,7 @@ grep -qxF "alias kl='kubectl logs'" $shell_rc || echo "alias kl='kubectl logs'" 
 grep -qxF "alias kdelp='kubectl delete pod'" $shell_rc || echo "alias kdelp='kubectl delete pod'" >> $shell_rc
 grep -qxF "alias kaf='kubectl apply -f'" $shell_rc || echo "alias kaf='kubectl apply -f'" >> $shell_rc
 grep -qxF "alias kgs='kubectl get services'" $shell_rc || echo "alias kgs='kubectl get services'" >> $shell_rc
+grep -qxF "alias kgsec='kubectl get secrets'" $shell_rc || echo "alias kgsec='kubectl get secrets'" >> $shell_rc
 grep -qxF "alias kgn='kubectl get nodes'" $shell_rc || echo "alias kgn='kubectl get nodes'" >> $shell_rc
 grep -qxF "alias kexec='kubectl exec -it'" $shell_rc || echo "alias kexec='kubectl exec -it'" >> $shell_rc
 grep -qxF "alias kge='kubectl get events'" $shell_rc || echo "alias kge='kubectl get events'" >> $shell_rc
