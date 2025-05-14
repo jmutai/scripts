@@ -6,7 +6,7 @@
 # Description: This script creates a backup of important system directories,
 #              compresses them using tar, and includes timestamps
 #              for easy identification.
-# Usage: ./system_backup.sh [config_file]
+# Usage: ./system_backups.sh [config_file]
 # Author: Josphat Mutai, https://cloudspinx.com
 # Date: 2025-05-15
 # =====================================================================
