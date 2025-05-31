@@ -1,0 +1,59 @@
+---
+- name: Configure Ceph Admin Access and Time Settings
+  hosts: all
+  become: true
+  vars:
+    ceph_admin_user: ceph-admin
+    ssh_pub_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/ceph_admin.key.pub') }}"
+    timezone_region: "America/New_York"  # <-- Set your desired timezone here
+
+  tasks:
+
+    - name: Update package index
+      package:
+        update_cache: yes
+
+    - name: Install chrony
+      package:
+        name: chrony
+        state: present
+
+    - name: Enable and start chrony (RHEL)
+      service:
+        name: chronyd
+        state: started
+        enabled: yes
+      when: ansible_facts['os_family'] == "RedHat"
+
+    - name: Enable and start chrony (Debian)
+      service:
+        name: chrony
+        state: started
+        enabled: yes
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Set timezone
+      timezone:
+        name: "{{ timezone_region }}"
+
+    - name: Create ceph-admin user with sudo access
+      user:
+        name: "{{ ceph_admin_user }}"
+        groups: sudo
+        append: yes
+        shell: /bin/bash
+        create_home: yes
+
+    - name: Configure passwordless sudo for ceph-admin
+      copy:
+        dest: "/etc/sudoers.d/{{ ceph_admin_user }}"
+        content: "{{ ceph_admin_user }} ALL=(ALL) NOPASSWD:ALL\n"
+        owner: root
+        group: root
+        mode: '0440'
+
+    - name: Add SSH public key to ceph-admin authorized_keys
+      authorized_key:
+        user: "{{ ceph_admin_user }}"
+        key: "{{ ssh_pub_key }}"
+        state: present
