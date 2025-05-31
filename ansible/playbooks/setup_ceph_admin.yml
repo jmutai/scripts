@@ -1,11 +1,23 @@
 ---
-- name: Configure Ceph Admin Access and Time Settings
+- name: Configure Ceph Admin Access, Timezone, and Host Mappings
   hosts: all
   become: true
   vars:
     ceph_admin_user: ceph-admin
     ssh_pub_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/ceph_admin.key.pub') }}"
-    timezone_region: "America/New_York"  # <-- Set your desired timezone here
+    timezone_region: "UTC"
+
+    # Define your IP <-> hostname map here
+    hosts_map:
+      - ip: "192.168.1.10"
+        fqdn: "ceph-mon1.example.com"
+        short: "ceph-mon1"
+      - ip: "192.168.1.11"
+        fqdn: "ceph-mon2.example.com"
+        short: "ceph-mon2"
+      - ip: "192.168.1.12"
+        fqdn: "ceph-mon3.example.com"
+        short: "ceph-mon3"
 
   tasks:
 
@@ -57,3 +69,18 @@
         user: "{{ ceph_admin_user }}"
         key: "{{ ssh_pub_key }}"
         state: present
+
+    - name: Update /etc/hosts with all cluster nodes
+      lineinfile:
+        path: /etc/hosts
+        create: yes
+        state: present
+        regexp: "^{{ item.ip }}\s"
+        line: "{{ item.ip }} {{ item.fqdn }} {{ item.short }}"
+      loop: "{{ hosts_map }}"
+
+    - name: Set hostname if this host matches IP in hosts_map
+      hostname:
+        name: "{{ item.short }}"
+      loop: "{{ hosts_map }}"
+      when: item.ip == ansible_host or item.ip == ansible_facts['default_ipv4']['address']
