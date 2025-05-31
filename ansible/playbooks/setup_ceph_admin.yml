@@ -75,7 +75,7 @@
         path: /etc/hosts
         create: yes
         state: present
-        regexp: "^{{ item.ip }}\s"
+        regexp: '^{{ item.ip }}\\s'
         line: "{{ item.ip }} {{ item.fqdn }} {{ item.short }}"
       loop: "{{ hosts_map }}"
 
